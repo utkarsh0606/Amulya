@@ -1,0 +1,611 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>A Question For Amulya ✨</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+<script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+
+<style>
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+-webkit-tap-highlight-color: transparent;
+}
+
+body{
+font-family:'Poppins',sans-serif;
+background:#fff6f7;
+overflow-x:hidden;
+overflow-y:auto;
+min-height:100vh;
+color:#333;
+transition:0.5s ease;
+}
+
+.screen{
+width:100%;
+min-height:100vh;
+display:none;
+justify-content:center;
+align-items:center;
+padding:24px;
+position:absolute;
+top:0;
+left:0;
+overflow-y:auto;
+}
+
+.active{
+display:flex;
+}
+
+.card{
+width:100%;
+max-width:420px;
+background:white;
+border-radius:32px;
+padding:28px;
+box-shadow:0 10px 40px rgba(0,0,0,0.08);
+text-align:center;
+position:relative;
+overflow:hidden;
+animation:fadeUp 0.6s ease;
+margin:40px 0;
+}
+
+@keyframes fadeUp{
+from{
+opacity:0;
+transform:translateY(20px);
+}
+to{
+opacity:1;
+transform:translateY(0px);
+}
+}
+
+h1{
+font-size:2rem;
+margin-bottom:12px;
+line-height:1.2;
+}
+
+p{
+line-height:1.6;
+font-size:0.98rem;
+}
+
+.btn{
+border:none;
+padding:14px 20px;
+border-radius:100px;
+font-size:1rem;
+font-weight:600;
+cursor:pointer;
+margin-top:20px;
+width:100%;
+transition:0.3s;
+font-family:'Poppins',sans-serif;
+}
+
+.primary{
+background:#ff7f9d;
+color:white;
+}
+
+.primary:active{
+transform:scale(0.97);
+}
+
+.secondary{
+background:#f3f3f3;
+color:#444;
+}
+
+.progress-wrap{
+margin-bottom:20px;
+}
+
+.progress-text{
+font-size:0.85rem;
+margin-bottom:8px;
+color:#888;
+}
+
+.progress{
+height:10px;
+background:#eee;
+border-radius:100px;
+overflow:hidden;
+}
+
+.progress-bar{
+height:100%;
+width:0%;
+background:#ff7f9d;
+transition:0.5s ease;
+}
+
+.option{
+background:#fafafa;
+border:2px solid transparent;
+padding:18px;
+border-radius:24px;
+margin-top:16px;
+text-align:left;
+cursor:pointer;
+transition:0.3s ease;
+}
+
+.option:active{
+transform:scale(0.98);
+}
+
+.option:hover{
+border-color:#ff7f9d;
+}
+
+.choice-icon{
+font-size:1.6rem;
+margin-bottom:10px;
+}
+
+.option h3{
+margin-bottom:6px;
+font-size:1rem;
+}
+
+.small{
+font-size:0.9rem;
+color:#777;
+}
+
+.tag{
+display:inline-block;
+padding:8px 14px;
+background:#fff0f4;
+border-radius:100px;
+font-size:0.8rem;
+margin-bottom:16px;
+color:#ff4f7b;
+font-weight:600;
+}
+
+.envelope{
+width:220px;
+height:150px;
+background:#ffb6c7;
+border-radius:0 0 14px 14px;
+position:relative;
+cursor:pointer;
+animation:bounce 2s infinite;
+}
+
+.envelope:before{
+content:'';
+position:absolute;
+top:0;
+left:0;
+border-left:110px solid transparent;
+border-right:110px solid transparent;
+border-top:80px solid #ff7f9d;
+transform-origin:top;
+transition:0.7s ease;
+}
+
+.envelope.open:before{
+transform:rotateX(180deg);
+}
+
+.letter{
+position:absolute;
+top:10px;
+left:10px;
+width:200px;
+height:120px;
+background:white;
+border-radius:10px;
+display:flex;
+justify-content:center;
+align-items:center;
+font-size:0.9rem;
+font-weight:600;
+text-align:center;
+padding:10px;
+line-height:1.5;
+}
+
+@keyframes bounce{
+0%,100%{
+transform:translateY(0px);
+}
+50%{
+transform:translateY(-10px);
+}
+}
+
+.final-box{
+background:#fff8fa;
+padding:20px;
+border-radius:24px;
+margin-top:20px;
+text-align:left;
+}
+
+.final-box p{
+margin-bottom:12px;
+}
+
+.floating{
+position:fixed;
+font-size:24px;
+animation:floatUp 5s linear forwards;
+pointer-events:none;
+z-index:999;
+}
+
+@keyframes floatUp{
+from{
+transform:translateY(100vh);
+opacity:1;
+}
+to{
+transform:translateY(-20vh);
+opacity:0;
+}
+}
+
+@media(max-width:480px){
+
+.card{
+padding:24px;
+border-radius:28px;
+}
+
+h1{
+font-size:1.7rem;
+}
+
+p{
+font-size:0.95rem;
+}
+
+.btn{
+padding:13px 18px;
+}
+
+}
+
+</style>
+</head>
+
+<body>
+
+<!-- SCREEN 1 -->
+
+<div class="screen active" id="screen1">
+
+<div class="envelope" onclick="openEnvelope()" id="envelope">
+
+<div class="letter">
+Amulya,<br>
+tap to open 💌
+</div>
+
+</div>
+
+</div>
+
+<!-- SCREEN 2 -->
+
+<div class="screen" id="screen2">
+
+<div class="card">
+
+<div class="progress-wrap">
+<div class="progress-text">
+Date Compatibility Test • 20%
+</div>
+
+<div class="progress">
+<div class="progress-bar" style="width:20%"></div>
+</div>
+</div>
+
+<div class="tag">
+verification required
+</div>
+
+<h1>Okay Amulya, quick question 👀</h1>
+
+<p>
+Before this date request proceeds...
+<br><br>
+On a scale of 1–10,
+how dumb do you think BITS guys are?
+</p>
+
+<button class="btn secondary" onclick="nextScreen(3)">
+Hopeless
+</button>
+
+<button class="btn secondary" onclick="nextScreen(3)">
+Academically functional
+</button>
+
+<button class="btn secondary" onclick="nextScreen(3)">
+Potentially dateable
+</button>
+
+</div>
+
+</div>
+
+<!-- SCREEN 3 -->
+
+<div class="screen" id="screen3">
+
+<div class="card">
+
+<div class="progress-wrap">
+<div class="progress-text">
+Date Compatibility Test • 45%
+</div>
+
+<div class="progress">
+<div class="progress-bar" style="width:45%"></div>
+</div>
+</div>
+
+<h1>Important Notice</h1>
+
+<p>
+I know your expectations from BITS guys are low.
+<br><br>
+I'm trying to shift the bell curve here.
+<br><br>
+Especially for you, Amulya.
+</p>
+
+<div class="final-box">
+
+<p>
+Potential side effects of this date include:
+</p>
+
+<p>
+• excessive laughing
+</p>
+
+<p>
+• judging random people together
+</p>
+
+<p>
+• proving BITS guys are semi-capable
+</p>
+
+<p>
+• accidentally having a really good time
+</p>
+
+</div>
+
+<button class="btn primary" onclick="nextScreen(4)">
+continue →
+</button>
+
+</div>
+
+</div>
+
+<!-- SCREEN 4 -->
+
+<div class="screen" id="screen4">
+
+<div class="card">
+
+<div class="progress-wrap">
+<div class="progress-text">
+Date Compatibility Test • 80%
+</div>
+
+<div class="progress">
+<div class="progress-bar" style="width:80%"></div>
+</div>
+</div>
+
+<h1>
+Choose our first bad financial decision together
+</h1>
+
+<div class="option" onclick="selectDate('camiano')">
+
+<div class="choice-icon">
+🍰
+</div>
+
+<h3>
+Dessert Date at Camiano
+</h3>
+
+<p class="small">
+Sugar rush + pretending we’re sophisticated.
+</p>
+
+</div>
+
+<div class="option" onclick="selectDate('clocktower')">
+
+<div class="choice-icon">
+🍺
+</div>
+
+<h3>
+Beer Date at Clock Tower
+</h3>
+
+<p class="small">
+It’s okay.<br>
+You get to drive.
+</p>
+
+</div>
+
+</div>
+
+</div>
+
+<!-- SCREEN 5 -->
+
+<div class="screen" id="screen5">
+
+<div class="card">
+
+<div class="progress-wrap">
+<div class="progress-text">
+Date Compatibility Test • 100%
+</div>
+
+<div class="progress">
+<div class="progress-bar" style="width:100%"></div>
+</div>
+</div>
+
+<h1>DATE BOOKED ✅</h1>
+
+<p style="margin-bottom:20px;">
+See you soon, Amulya :)
+</p>
+
+<div class="final-box">
+
+<p>
+<b>Venue:</b>
+<span id="venue"></span>
+</p>
+
+<p>
+<b>Driver:</b>
+apparently you
+</p>
+
+<p>
+<b>Dress code:</b>
+the outfit you overthink for 40 mins
+</p>
+
+<p>
+<b>Status:</b>
+BITS guy exceeded expectations
+</p>
+
+</div>
+
+<button class="btn primary" onclick="celebrate()">
+see you soon :)
+</button>
+
+</div>
+
+</div>
+
+<script>
+
+function openEnvelope(){
+
+document.getElementById('envelope').classList.add('open');
+
+setTimeout(()=>{
+
+document.getElementById('screen1').classList.remove('active');
+document.getElementById('screen2').classList.add('active');
+
+window.scrollTo(0,0);
+
+},700);
+
+}
+
+function nextScreen(num){
+
+for(let i=1;i<=5;i++){
+
+document.getElementById('screen'+i).classList.remove('active');
+
+}
+
+document.getElementById('screen'+num).classList.add('active');
+
+window.scrollTo(0,0);
+
+}
+
+function selectDate(choice){
+
+let venue = '';
+
+if(choice === 'camiano'){
+
+venue = 'Camiano 🍰';
+document.body.style.background = '#fff0f5';
+
+}
+
+else{
+
+venue = 'Clock Tower 🍺';
+document.body.style.background = '#f4ede7';
+
+}
+
+document.getElementById('venue').innerText = venue;
+
+nextScreen(5);
+
+}
+
+function celebrate(){
+
+confetti({
+particleCount:150,
+spread:90,
+origin:{y:0.6}
+});
+
+setInterval(createFloating,500);
+
+}
+
+function createFloating(){
+
+const item = document.createElement('div');
+
+item.classList.add('floating');
+
+const emojis = ['💖','✨','🍺','🍰'];
+
+item.innerHTML = emojis[Math.floor(Math.random()*emojis.length)];
+
+item.style.left = Math.random()*100 + 'vw';
+
+document.body.appendChild(item);
+
+setTimeout(()=>{
+
+item.remove();
+
+},5000);
+
+}
+
+</script>
+
+</body>
+</html>
